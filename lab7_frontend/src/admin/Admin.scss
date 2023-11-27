@@ -1,0 +1,51 @@
+.homePage{
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background-color: rgb(246, 185, 220);
+
+    .header-left{
+        font-size: 30px;
+        font-weight: bold;
+        margin-left: 300px;
+    }
+    .header-right{
+        margin-right: 300px;
+        font-weight: bold;
+    }
+}
+
+.content{
+    display: flex;
+    margin: 0 220px;
+    table{
+        width: 100%;
+        td{
+            text-align: center;
+            
+        border: 1px dashed #70194f;
+        }
+        button{
+            outline: none;
+            border: none;
+            margin-left: 5px;
+            background-color: rgb(244, 104, 216);
+            color: #70194f;
+            cursor: pointer;
+        }
+    }
+}
+.footer{
+
+}
+
+
+
+
+
