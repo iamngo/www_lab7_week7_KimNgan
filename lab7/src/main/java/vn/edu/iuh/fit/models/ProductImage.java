@@ -1,41 +1,50 @@
 package vn.edu.iuh.fit.models;
-
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 @Entity
 @Table(name = "product_image")
-public class ProductImage {
+public class ProductImage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
-    private long image_id;
-    /*@Column(name = "product_id")
-    private long product_id;*/
-    @Column(name = "path", length = 250, nullable = false)
-    private String path;
-    @Column(name = "alternative", length = 250)
-    private String alternative;
+    private long imageId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Column(name = "path")
+    private String path;
+
+    @Column(name = "alternative")
+    private String alternative;
+
     public ProductImage() {
     }
 
-    public ProductImage(String path, String alternative) {
+    public ProductImage(long imageId, Product product, String path, String alternative) {
+        this.imageId = imageId;
+        this.product = product;
         this.path = path;
         this.alternative = alternative;
     }
 
-    public long getImage_id() {
-        return image_id;
+    public long getImageId() {
+        return imageId;
     }
 
-    public void setImage_id(long image_id) {
-        this.image_id = image_id;
+    public void setImageId(long imageId) {
+        this.imageId = imageId;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public String getPath() {
         return path;
@@ -53,21 +62,13 @@ public class ProductImage {
         this.alternative = alternative;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     @Override
     public String toString() {
         return "ProductImage{" +
-                "image_id=" + image_id +
+                "imageId=" + imageId +
+                ", product=" + product +
                 ", path='" + path + '\'' +
                 ", alternative='" + alternative + '\'' +
-                ", product=" + product +
                 '}';
     }
 }

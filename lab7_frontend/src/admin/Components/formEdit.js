@@ -37,9 +37,9 @@ function FormEdit({visible, setVisible, data, handleChangeIsClickBtn, isClickBtn
   });
 
   const onInitData = () => {
-    const { id, fullName, email, phone, address } = data;
+    const { empId, fullName, email, phone, address } = data;
     form.setFieldsValue({
-      id,
+      empId,
       fullName,
       email,
       phone,
@@ -49,10 +49,10 @@ function FormEdit({visible, setVisible, data, handleChangeIsClickBtn, isClickBtn
 
   const onFinish = async (values) => {
     try {
-      const {id} = data;
-      values.id = id;
+      const {empId} = data;
+      values.empId = empId;
       const res = await axios.put(`http://localhost:8080/employees`,values);
-      if (!!res) {
+      if (res) {
         message.success("Cập nhật thành công!");
         setVisible(false);
         handleChangeIsClickBtn(!isClickBtn)

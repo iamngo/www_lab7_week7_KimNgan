@@ -24,12 +24,12 @@ public class ProductController {
 
     @GetMapping("/info-product/{page}")
     public List<InforProduct> getInforProducts(@PathVariable("page") int page){
-        Pageable pageable = PageRequest.of(page,9);
+        Pageable pageable = PageRequest.of(page,6);
         return productService.getInforProducts(pageable).getContent();
     }
 
     @GetMapping("/get-total-pages")
     public long getTotalPages(){
-        return (long) Math.ceil((double) productService.getTotalPages()/9);
+        return (long) Math.ceil((double) productService.getTotalPages()/6);
     }
 }

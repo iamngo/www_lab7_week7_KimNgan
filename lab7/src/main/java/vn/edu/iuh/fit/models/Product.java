@@ -3,60 +3,48 @@ package vn.edu.iuh.fit.models;
 import jakarta.persistence.*;
 import vn.edu.iuh.fit.enums.ProductStatus;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "product")
-@NamedQueries(value = {
-        @NamedQuery(name = "Product.findAll", query = "select p from Product p where p.status = ?1"),
-        @NamedQuery(name = "Product.findById", query = "select p from Product p where p.product_id = ?1")
-        //,...1
-})
-public class Product {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
-    private long product_id;
-    @Column(name = "name", length = 150, nullable = false)
+    private long productId;
+
+    @Column(name = "name")
     private String name;
 
-    @Lob
-    @Column(name = "description",  columnDefinition = "text", nullable = false)
+    @Column(name = "description")
     private String description;
-    @Column(name = "unit", length = 25, nullable = false)
+
+    @Column(name = "unit")
     private String unit;
-    @Column(name = "manufacturer_name", length = 100, nullable = false)
-    private String manufacturer;
+
+    @Column(name = "manufacturer_name")
+    private String manufacturerName;
 
     @Column(name = "status")
     private ProductStatus status;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductImage> productImageList = new ArrayList<>();
+    public Product(){}
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<OrderDetail> orderDetails = new ArrayList<>();
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductPrice> productPrices = new ArrayList<>();
-
-    public Product() {
-    }
-
-    public Product(String name, String description, String unit, String manufacturer, ProductStatus status) {
+    public Product(long productId, String name, String description, String unit, String manufacturerName, ProductStatus status) {
+        this.productId = productId;
         this.name = name;
         this.description = description;
         this.unit = unit;
-        this.manufacturer = manufacturer;
+        this.manufacturerName = manufacturerName;
         this.status = status;
     }
 
-    public long getProduct_id() {
-        return product_id;
+    public long getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(long id) {
-        this.product_id = id;
+    public void setProductId(long productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -83,12 +71,12 @@ public class Product {
         this.unit = unit;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public String getManufacturerName() {
+        return manufacturerName;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setManufacturerName(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
     }
 
     public ProductStatus getStatus() {
@@ -99,41 +87,15 @@ public class Product {
         this.status = status;
     }
 
-    public List<ProductImage> getProductImageList() {
-        return productImageList;
-    }
-
-    public void setProductImageList(List<ProductImage> productImageList) {
-        this.productImageList = productImageList;
-    }
-
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public List<ProductPrice> getProductPrices() {
-        return productPrices;
-    }
-
-    public void setProductPrices(List<ProductPrice> productPrices) {
-        this.productPrices = productPrices;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
-                "id=" + product_id +
+                "productId=" + productId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", unit='" + unit + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
+                ", manufacturerName='" + manufacturerName + '\'' +
                 ", status=" + status +
                 '}';
     }
-
-
 }

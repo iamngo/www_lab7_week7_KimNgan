@@ -3,10 +3,12 @@ package vn.edu.iuh.fit.repositories;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import vn.edu.iuh.fit.models.Product;
 
 import java.util.List;
 
+@Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT p.name, prm.path, od.price, od.quantity, o.order_date FROM customer AS c INNER JOIN orders AS o ON c.cust_id = o.cust_id INNER JOIN order_detail AS od ON o.order_id = od.order_id INNER JOIN product AS p ON od.product_id = p.product_id INNER JOIN product_image AS prm ON p.product_id = prm.product_id WHERE c.cust_id = ? ORDER BY o.order_date DESC", nativeQuery = true)
     public List<Object[]> getProductsOrderedByCustomerID(long id);

@@ -9,7 +9,6 @@ import java.io.Serializable;
 public class Account implements Serializable {
     @Id
     @Column(name = "account_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long accountId;
     @Column(name = "phone_Number")
     private String phoneNumber;
@@ -22,7 +21,7 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(long accountId, String phoneNumber, String password, String role, Customer customer) {
+    public Account(long accountId, String phoneNumber,String password,  String role, Customer customer) {
         this.accountId = accountId;
         this.phoneNumber = phoneNumber;
         this.password = password;
@@ -90,7 +89,7 @@ public class Account implements Serializable {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
-                ", customer=" + customer.getId() +
+                ", customer=" + customer.getCustId() +
                 '}';
     }
 }

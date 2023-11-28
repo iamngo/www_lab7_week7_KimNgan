@@ -1,49 +1,36 @@
 package vn.edu.iuh.fit.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import jakarta.persistence.*;
 import vn.edu.iuh.fit.enums.EmployeeStatus;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "employee")
-@NamedQueries(
-        @NamedQuery(name = "Employee.findAll", query = "select e from Employee e where e.status= ?1")
-//        ,@NamedQuery(name = "Employee.findXXXXXXX", query = "select e from Employee e where????")
-        //,...
-)
-public class Employee {
+public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "emp_id")
-    private long id;
-    @Column(name = "full_name", length = 150, nullable = false)
+    private long empId;
+    @Column(name = "full_name")
     private String fullName;
     @Column(name = "dob")
     private String dob;
-    @Column(name = "email", unique = true, length = 150)
+    @Column(name = "email")
     private String email;
-    @Column(name = "phone", length = 15, nullable = false)
+    @Column(name = "phone")
     private String phone;
-    @Column(name = "address", length = 250, nullable = false)
+    @Column(name = "address")
     private String address;
     @Column(name = "status")
     private EmployeeStatus status;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-//    @JoinColumn
-    private List<Order> lstOrder;
-
     public Employee() {
     }
 
-    public Employee(String fullName, String dob, String email, String phone, String address, EmployeeStatus status) {
+    public Employee(long empId, String fullName, String dob, String email, String phone, String address, EmployeeStatus status) {
+        this.empId = empId;
         this.fullName = fullName;
         this.dob = dob;
         this.email = email;
@@ -52,20 +39,20 @@ public class Employee {
         this.status = status;
     }
 
-    public long getId() {
-        return id;
+    public long getEmpId() {
+        return empId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setEmpId(long empId) {
+        this.empId = empId;
     }
 
     public String getFullName() {
         return fullName;
     }
 
-    public void setFullName(String fullname) {
-        this.fullName = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getDob() {
@@ -108,37 +95,16 @@ public class Employee {
         this.status = status;
     }
 
-    public List<Order> getLstOrder() {
-        return lstOrder;
-    }
-
-    public void setLstOrder(List<Order> lstOrder) {
-        this.lstOrder = lstOrder;
-    }
-
     @Override
     public String toString() {
-        return "{" +
-                "id=" + id +
-                ", fullname='" + fullName + '\'' +
+        return "Employee{" +
+                "empId=" + empId +
+                ", fullName='" + fullName + '\'' +
                 ", dob=" + dob +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", status=" + status +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
-        Employee employee = (Employee) o;
-        return getId() == employee.getId();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
     }
 }

@@ -80,13 +80,13 @@ const Admin = () => {
                     </tr>   
                     {emp.map(emp => 
                             <tr className="emp" key={emp.id}>
-                                <td>{emp.id}</td>
+                                <td>{emp.empId}</td>
                                 <td>{emp.fullName}</td>
                                 <td>{emp.phone}</td>
                                 <td>{emp.email}</td>
                                 <td>{emp.address}</td>
-                                <button onClick={() => handleClickDelete(emp.id)}>Xóa</button>
-                                <button onClick={() => handleClickEdit(emp.id)}>Sửa</button>
+                                <button onClick={() => handleClickDelete(emp.empId)}>Xóa</button>
+                                <button onClick={() => handleClickEdit(emp.empId)}>Sửa</button>
                                 
                             </tr>
                             

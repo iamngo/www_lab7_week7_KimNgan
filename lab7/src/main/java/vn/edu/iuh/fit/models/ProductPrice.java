@@ -1,34 +1,47 @@
 package vn.edu.iuh.fit.models;
-
 import jakarta.persistence.*;
-import vn.edu.iuh.fit.pks.ProductPricePK;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product_price")
-@IdClass(ProductPricePK.class)
-public class ProductPrice {
+public class ProductPrice implements Serializable{
     @Id
-    @JoinColumn(name = "product_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "price_id")
+    private long priceId;
+
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
-    @Id
+
     @Column(name = "price_date_time")
-    private LocalDateTime price_date_time;
-    @Column(name = "price", nullable = false)
+    private LocalDateTime priceDateTime;
+
+    @Column(name = "price")
     private double price;
+
     @Column(name = "note")
     private String note;
 
     public ProductPrice() {
     }
 
-    public ProductPrice(Product product, LocalDateTime price_date_time, double price, String note) {
+    public ProductPrice(long priceId, Product product, LocalDateTime priceDateTime, double price, String note) {
+        this.priceId = priceId;
         this.product = product;
-        this.price_date_time = price_date_time;
+        this.priceDateTime = priceDateTime;
         this.price = price;
         this.note = note;
+    }
+
+    public long getPriceId() {
+        return priceId;
+    }
+
+    public void setPriceId(long priceId) {
+        this.priceId = priceId;
     }
 
     public Product getProduct() {
@@ -39,12 +52,12 @@ public class ProductPrice {
         this.product = product;
     }
 
-    public LocalDateTime getPrice_date_time() {
-        return price_date_time;
+    public LocalDateTime getPriceDateTime() {
+        return priceDateTime;
     }
 
-    public void setPrice_date_time(LocalDateTime price_date_time) {
-        this.price_date_time = price_date_time;
+    public void setPriceDateTime(LocalDateTime priceDateTime) {
+        this.priceDateTime = priceDateTime;
     }
 
     public double getPrice() {
@@ -66,8 +79,9 @@ public class ProductPrice {
     @Override
     public String toString() {
         return "ProductPrice{" +
-                "product=" + product +
-                ", price_date_time=" + price_date_time +
+                "priceId=" + priceId +
+                ", product=" + product +
+                ", priceDateTime=" + priceDateTime +
                 ", price=" + price +
                 ", note='" + note + '\'' +
                 '}';

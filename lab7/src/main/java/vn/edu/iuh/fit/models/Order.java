@@ -1,48 +1,43 @@
 package vn.edu.iuh.fit.models;
-
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    private long order_id;
+    private long orderId;
 
-    @Column(name = "order_date", nullable = false)
+    @Column(name = "order_date")
     private String orderDate;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "emp_id")
     private Employee employee;
 
     @ManyToOne
     @JoinColumn(name = "cust_id")
     private Customer customer;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderDetail> orderDetails;
-
     public Order() {
     }
 
-    public Order(long order_id, String orderDate, Employee employee, Customer customer) {
-        this.order_id = order_id;
+    public Order(long orderId, String orderDate, Employee employee, Customer customer) {
+        this.orderId = orderId;
         this.orderDate = orderDate;
         this.employee = employee;
         this.customer = customer;
     }
 
-    public long getOrder_id() {
-        return order_id;
+    public long getOrderId() {
+        return orderId;
     }
 
-    public void setOrder_id(long order_id) {
-        this.order_id = order_id;
+    public void setOrderId(long orderId) {
+        this.orderId = orderId;
     }
 
     public String getOrderDate() {
@@ -69,22 +64,13 @@ public class Order {
         this.customer = customer;
     }
 
-    public List<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
     @Override
     public String toString() {
         return "Order{" +
-                "order_id=" + order_id +
+                "orderId=" + orderId +
                 ", orderDate=" + orderDate +
                 ", employee=" + employee +
                 ", customer=" + customer +
-                ", orderDetails=" + orderDetails +
                 '}';
     }
 }

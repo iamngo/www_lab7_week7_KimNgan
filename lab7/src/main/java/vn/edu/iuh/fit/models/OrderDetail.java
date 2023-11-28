@@ -1,45 +1,73 @@
 package vn.edu.iuh.fit.models;
-
 import jakarta.persistence.*;
-import vn.edu.iuh.fit.pks.OrderDetailPK;
 
+import java.io.Serializable;
 @Entity
 @Table(name = "order_detail")
-@IdClass(OrderDetailPK.class)
-public class OrderDetail {
-    @Column(name = "quantity", nullable = false)
-    private double quantity;
-    @Column(name = "price", nullable = false)
-    private double price;
-    @Column(name = "note", length = 255, nullable = true)
-    private String note;
-
+public class OrderDetail implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_detail_id")
+    private long orderDetailId;
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
-    @Id
-    @JoinColumn(name = "product_id")
+
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
+
+    @Column(name = "quantity")
+    private int quantity;
+
+    @Column(name = "price")
+    private double price;
+
+    @Column(name = "note")
+    private String note;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(double quantity, double price, String note, Order order, Product product) {
+    public OrderDetail(long orderDetailId, Order order, Product product, int quantity, double price, String note) {
+        this.orderDetailId = orderDetailId;
+        this.order = order;
+        this.product = product;
         this.quantity = quantity;
         this.price = price;
         this.note = note;
+    }
+
+    public long getOrderDetailId() {
+        return orderDetailId;
+    }
+
+    public void setOrderDetailId(long orderDetailId) {
+        this.orderDetailId = orderDetailId;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
         this.product = product;
     }
 
-
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -59,30 +87,15 @@ public class OrderDetail {
         this.note = note;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     @Override
     public String toString() {
         return "OrderDetail{" +
+                "orderDetailId=" + orderDetailId +
+                ", order=" + order +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", note='" + note + '\'' +
-                ", order=" + order +
-                ", product=" + product +
                 '}';
     }
 }
