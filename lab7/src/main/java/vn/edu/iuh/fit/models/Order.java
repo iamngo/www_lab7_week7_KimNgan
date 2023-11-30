@@ -32,6 +32,12 @@ public class Order implements Serializable {
         this.customer = customer;
     }
 
+    public Order(String orderDate, Employee employee, Customer customer) {
+        this.orderDate = orderDate;
+        this.employee = employee;
+        this.customer = customer;
+    }
+
     public long getOrderId() {
         return orderId;
     }

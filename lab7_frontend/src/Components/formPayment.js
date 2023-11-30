@@ -65,7 +65,7 @@ function FormPayment({visible, setVisible, productChosen, total, customer}) {
     try {
       const res = await axios.post("http://localhost:8080/orders",{
         orderDate: format(new Date(), "yyyy-MM-dd"),
-        employee: employees.find((e) => (e.id = employeeChosen)),
+        employee: employees.find((e) => (e.empId = employeeChosen)),
         customer: customer.customer
       });
       if (!!res) {
